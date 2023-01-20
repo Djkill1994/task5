@@ -1,0 +1,1 @@
+export { GeneratorConfigForm } from "./GeneratorConfigForm";
