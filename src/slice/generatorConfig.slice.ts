@@ -39,9 +39,7 @@ export const generatorConfigSlice = createSlice({
       state.errors = payload;
     },
     generateMoreUsers: (state) => {
-      if (state.seed) {
-        faker.mersenne.seed(state.seed + state.users.length);
-      }
+      faker.mersenne.seed(state.seed + state.users.length);
       state.users = [
         ...state.users,
         ...addErrorsToUsers(
