@@ -12,17 +12,21 @@ import {
 } from "@mui/material";
 import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "../store";
 import {
   setErrors,
   setLanguage,
   setSeed,
-} from "../../slice/generatorConfig.slice";
+} from "../slice/generatorConfig.slice";
 import { AutoFixHigh } from "@mui/icons-material";
+import csvDownload from "json-to-csv-export";
+import { USERS_TABLE_TITLES } from "./UsersTable";
+
+const MAX_SEED_NUMBER = 1000000;
 
 export const GeneratorConfigForm: FC = () => {
   const dispatch = useDispatch();
-  const { language, seed, errors } = useSelector(
+  const { language, seed, errors, users } = useSelector(
     (state: RootState) => state.generatorConfig
   );
 
@@ -36,7 +40,7 @@ export const GeneratorConfigForm: FC = () => {
     >
       <Stack gap="16px">
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">League</InputLabel>
+          <InputLabel id="demo-simple-select-label">Language</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -67,7 +71,7 @@ export const GeneratorConfigForm: FC = () => {
           value={errors}
           valueLabelDisplay="auto"
           onChange={(_, newError) => dispatch(setErrors(newError))}
-          step={1}
+          step={0.25}
           marks
           min={0}
           max={10}
@@ -77,18 +81,33 @@ export const GeneratorConfigForm: FC = () => {
             id="outlined-basic"
             label="Enter seed"
             fullWidth
-            value={seed}
-            onChange={({ target: { value } }) => dispatch(setSeed(value))}
+            value={seed || ""}
+            onChange={({ target: { value } }) => dispatch(setSeed(+value))}
             size="small"
             inputProps={{
               type: "number",
             }}
           />
-          <IconButton>
+          <IconButton
+            onClick={() =>
+              dispatch(setSeed(Math.floor(Math.random() * MAX_SEED_NUMBER)))
+            }
+          >
             <AutoFixHigh />
           </IconButton>
         </Stack>
-        <Button variant="contained" fullWidth>
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={() =>
+            csvDownload({
+              data: users,
+              filename: "csvFile",
+              delimiter: ",",
+              headers: USERS_TABLE_TITLES,
+            })
+          }
+        >
           Download CSV
         </Button>
       </Stack>
