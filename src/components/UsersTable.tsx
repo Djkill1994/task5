@@ -67,11 +67,21 @@ export const UsersTable: FC = () => {
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.index}>
-              <TableCell>{user.index}</TableCell>
-              <TableCell>{user.id}</TableCell>
-              <TableCell>{user.fullName}</TableCell>
-              <TableCell>{user.address}</TableCell>
-              <TableCell>{user.phone}</TableCell>
+              <TableCell sx={{ maxWidth: 50, wordBreak: "break-word" }}>
+                {user.index}
+              </TableCell>
+              <TableCell sx={{ maxWidth: 100, wordBreak: "break-word" }}>
+                {user.id}
+              </TableCell>
+              <TableCell sx={{ maxWidth: 150, wordBreak: "break-word" }}>
+                {user.fullName}
+              </TableCell>
+              <TableCell sx={{ maxWidth: 200, wordBreak: "break-word" }}>
+                {user.address}
+              </TableCell>
+              <TableCell sx={{ maxWidth: 150, wordBreak: "break-word" }}>
+                {user.phone}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

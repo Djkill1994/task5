@@ -22,14 +22,12 @@ const deleteSymbol = (value: string): string => {
 const addSymbol = (value: string, field: string): string => {
   const randomPosition = getRandomPosition(value);
   const randomSymbol =
-    LOCALES[faker.locale][
-      faker.datatype.number({ min: 0, max: LOCALES[faker.locale].length - 1 })
-    ];
+    LOCALES[faker.locale][getRandomPosition(LOCALES[faker.locale])];
   const randomNumber = faker.datatype.number({ min: 0, max: 9 });
   return (
     value.substring(0, randomPosition) +
     (SYMBOL_FIELDS.includes(field) ? randomSymbol : randomNumber) +
-    value.substring(randomPosition + 1)
+    value.substring(randomPosition)
   );
 };
 

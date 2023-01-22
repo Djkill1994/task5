@@ -81,7 +81,7 @@ export const GeneratorConfigForm: FC = () => {
             id="outlined-basic"
             label="Enter seed"
             fullWidth
-            value={seed || ""}
+            value={seed}
             onChange={({ target: { value } }) => dispatch(setSeed(+value))}
             size="small"
             inputProps={{

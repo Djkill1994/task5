@@ -13,12 +13,13 @@ export interface IUser {
 
 interface IGeneratorConfigState {
   language: string;
-  seed?: number;
+  seed: number;
   errors: number;
   users: IUser[];
 }
 
 const initialState: IGeneratorConfigState = {
+  seed: 0,
   language: "ru",
   errors: 0,
   users: generateItems(20, 0),
